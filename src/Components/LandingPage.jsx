@@ -9,7 +9,7 @@ function LandingPage() {
       .then((string) => {
         const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
         const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
-
+        // Data Split
         const array = csvRows.map((i) => {
           const values = i.split(",");
           const obj = csvHeader.reduce((object, header, index) => {
@@ -18,6 +18,7 @@ function LandingPage() {
           }, {});
           return obj;
         });
+        // Set Into Context Array
         data.setData(array);
       });
   }, []);

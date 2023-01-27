@@ -2,17 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import { dataContext } from "../App";
 
 function Country() {
+  // UseContext For Data
   const data = useContext(dataContext);
   const [country, setCountry] = useState([]);
+  //   UseState For Select Field
   const [select, setSelect] = useState("");
   const [order, setOrder] = useState(0);
   const [quan, setQuan] = useState(0);
   useEffect(() => {
+    // Filer by country
     let uniqueCoun = data.data.map((val) => val["Country\r"]);
     uniqueCoun = uniqueCoun = [...new Set(uniqueCoun)];
     uniqueCoun = uniqueCoun.filter((val) => isNaN(val));
     setCountry(uniqueCoun);
   }, [data]);
+  //   Click Country Handler
   const countryHandler = (e) => {
     setSelect(e.target.value);
     let tempQuant = 0;
@@ -71,8 +75,8 @@ function Country() {
               <table class="table">
                 <thead>
                   <tr>
+                    <th>Total Products</th>
                     <th>Total Quantity</th>
-                    <th>Item Orders</th>
                   </tr>
                 </thead>
                 <tbody>

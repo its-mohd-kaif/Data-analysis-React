@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { dataContext } from "../App";
 
 function Unidesc() {
+  // UseContext Data Array
   const data = useContext(dataContext);
+  // UseState For Input Fields
   const [desc, setDesc] = useState([]);
   const [select, setSelect] = useState("");
   const [quantity, setQuantity] = useState(0);

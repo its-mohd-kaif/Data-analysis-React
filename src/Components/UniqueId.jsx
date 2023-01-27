@@ -7,6 +7,7 @@ function UniqueId() {
   const [id, setId] = useState("");
   const [inovice, setInvoice] = useState(0);
   useEffect(() => {
+    // Filer Data
     let uniqueId = data.data.map((val) => val.CustomerID);
     uniqueId = [...new Set(uniqueId)];
     setCusid(uniqueId);
