@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { createContext, useState } from "react";
+import Country from "./Components/Country";
+import LandingPage from "./Components/LandingPage";
+import Unidesc from "./Components/Unidesc";
+import UniqueId from "./Components/UniqueId";
+export const dataContext = createContext();
+// export const descContext = createContext();
 function App() {
+  const [data, setData] = useState([]);
+  const [id, setId] = useState([]);
+  const [desc, setDesc] = useState([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <dataContext.Provider value={{ data, setData, desc, setDesc, id, setId }}>
+        <LandingPage />
+        <UniqueId />
+        <Unidesc />
+        <Country />
+      </dataContext.Provider>
     </div>
   );
 }
