@@ -10,10 +10,13 @@ function Unidesc() {
   const [quantity, setQuantity] = useState(0);
   const [order, setOrder] = useState(0);
   useEffect(() => {
+    // Filter data
     let uniqueDesc = data.data.map((val) => val.Description);
     uniqueDesc = [...new Set(uniqueDesc)];
     setDesc(uniqueDesc);
   }, [data]);
+
+  // Select Handler
   const descHandler = (e) => {
     setSelect(e.target.value);
     let tempQuant = 0;
@@ -71,8 +74,8 @@ function Unidesc() {
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Total Quantity</th>
                     <th>Item Orders</th>
+                    <th>Total Quantity</th>
                   </tr>
                 </thead>
                 <tbody>

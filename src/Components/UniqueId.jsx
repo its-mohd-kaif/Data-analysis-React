@@ -6,26 +6,37 @@ function UniqueId() {
   const [cusid, setCusid] = useState([]);
   const [id, setId] = useState("");
   const [inovice, setInvoice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [table, setTable] = useState([]);
   useEffect(() => {
-    // Filter Data
+    // Filter Unique Data
     let uniqueId = data.data.map((val) => val.CustomerID);
     uniqueId = [...new Set(uniqueId)];
     let temp = uniqueId.map((val) => parseInt(val));
     let filter = temp.filter((val) => JSON.stringify(val).length === 5);
-    console.log("filter", filter);
+    // Set into state
     setCusid(filter);
-    console.log(data.data);
   }, [data]);
+
+  // Select Id Hadler
   const idHandler = (e) => {
     setId(e.target.value);
+    let temp = [];
     let tempBill = 0;
     data.data.map((val) => {
       if (val.CustomerID === `${e.target.value}.0`) {
         tempBill += Number(val.Quantity) * Number(val.UnitPrice);
-        setQuantity((val) => ++val);
+        let obj = {
+          disc: val.Description,
+          quan: Number(val.Quantity),
+          price: Number(val.UnitPrice),
+          cost: Number(val.Quantity) * Number(val.UnitPrice),
+        };
+        temp.push(obj);
       }
     });
+    // Store only 10 data in table
+    temp = temp.splice(0, 10);
+    setTable(temp);
     setInvoice(tempBill);
   };
   return (
@@ -76,19 +87,26 @@ function UniqueId() {
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Product Id</th>
-                    <th>Total Quantity</th>
-                    <th>Total Price</th>
+                    <th>Product Name</th>
+                    <th>Product Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Cost</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>{id}</td>
-                    <td>{quantity}</td>
-                    <td>$ {parseInt(inovice)}</td>
-                  </tr>
+                  {table.map((val) => (
+                    <tr>
+                      <td>{val.disc}</td>
+                      <td>{val.quan}</td>
+                      <td>$ {val.price}</td>
+                      <td>$ {parseInt(val.cost)}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
+              <h3>Total Amount : $ {parseInt(inovice)}</h3>
+              <hr></hr>
+              <p style={{ textAlign: "left" }}>Note* Only 10 items display</p>
             </div>
           </div>
         </div>
